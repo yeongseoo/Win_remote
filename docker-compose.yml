@@ -1,0 +1,21 @@
+services:
+  guacd:
+    image: guacamole/guacd:1.5.5
+    restart: unless-stopped
+
+  web:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - guacd
+    ports:
+      - "8080:8080"
+    environment:
+      GUACD_HOST: guacd
+      GUACD_PORT: 4822
+      # 토큰 암호화 키 (임의의 긴 문자열로 변경하세요)
+      SECRET_KEY: ${SECRET_KEY:-change-me-to-a-long-random-string}
+      # 이 웹 서비스 자체를 보호하는 비밀번호 (인터넷에 공개할 경우 반드시 설정)
+      ACCESS_PASSWORD: ${ACCESS_PASSWORD:-}
+      # 접속 허용 대상 호스트 제한 (쉼표 구분, * 와일드카드 접미사 가능). 비우면 제한 없음
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-}

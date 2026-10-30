@@ -1,0 +1,130 @@
+:root {
+    --bg: #0f1720;
+    --card: #17212c;
+    --border: #2a3a4a;
+    --text: #e6edf3;
+    --muted: #93a4b5;
+    --accent: #2f81f7;
+    --danger: #e5534b;
+    color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+}
+
+.hidden { display: none !important; }
+
+/* ---------- 로그인 ---------- */
+.login-view {
+    min-height: 100%;
+    display: grid;
+    place-items: center;
+    padding: 24px 16px;
+}
+
+.card {
+    width: 100%;
+    max-width: 440px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+h1 { margin: 0; font-size: 22px; }
+h3 { margin: 0 0 8px; }
+.sub { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); }
+label.check { flex-direction: row; align-items: center; gap: 8px; color: var(--text); }
+
+input, select, textarea {
+    font: inherit;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 11px;
+    width: 100%;
+}
+input[type=checkbox] { width: auto; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); border-color: transparent; }
+
+.row { display: flex; gap: 12px; }
+.row.end { justify-content: flex-end; }
+.grow { flex: 1; }
+.port { width: 100px; }
+
+details { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+details[open] { display: flex; flex-direction: column; gap: 12px; }
+summary { cursor: pointer; font-size: 13px; }
+
+button {
+    font: inherit;
+    font-size: 14px;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+}
+button:disabled { opacity: .6; cursor: progress; }
+button.secondary { background: var(--border); }
+button.danger { background: var(--danger); }
+
+.error { color: var(--danger); margin: 0; font-size: 13px; min-height: 1em; }
+
+/* ---------- 원격 세션 ---------- */
+.session-view {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    background: #000;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+}
+.toolbar button { padding: 5px 10px; font-size: 12px; background: var(--border); }
+.toolbar button.danger { background: var(--danger); }
+.status { flex: 1; font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.display-wrap {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.display-wrap > div { cursor: none; }
+
+dialog {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    width: min(520px, calc(100% - 32px));
+}
+dialog form { display: flex; flex-direction: column; gap: 10px; }
+dialog::backdrop { background: rgba(0, 0, 0, .6); }
