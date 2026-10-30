@@ -40,6 +40,10 @@
         0x031D: '너무 많은 연결이 시도되었습니다.',
     };
 
+    // 모바일 화상 키보드 입력을 받기 위한 숨은 입력창 (Guacamole.Keyboard 가 document 에서 이벤트를 받음)
+    const inputSink = new Guacamole.InputSink();
+    document.body.appendChild(inputSink.getElement());
+
     let client = null;
     let keyboard = null;
     let resizeTimer = null;
@@ -104,10 +108,15 @@
         return body.token;
     }
 
+    // 휴대폰처럼 작은 화면에서는 Windows 화면이 너무 좁아지지 않도록
+    // 화면 비율은 유지하면서 가로 1024px 이상으로 요청하고 축소해서 보여준다.
     function displaySize() {
+        const w = Math.max(1, wrap.clientWidth);
+        const h = Math.max(1, wrap.clientHeight);
+        const factor = Math.max(1, 1024 / w);
         return {
-            width: Math.max(640, Math.floor(wrap.clientWidth)),
-            height: Math.max(480, Math.floor(wrap.clientHeight)),
+            width: Math.floor(w * factor),
+            height: Math.max(480, Math.min(2048, Math.floor(h * factor))),
         };
     }
 
@@ -265,6 +274,8 @@
         const btn = e.target.closest('button[data-action]');
         if (!btn || !client) return;
         switch (btn.dataset.action) {
+            // 모바일 브라우저는 탭 이벤트 안에서 바로 focus 해야 화상 키보드를 띄워줌
+            case 'keyboard': inputSink.getElement().focus(); return;
             case 'cad': sendKeys([KEY.CTRL, KEY.ALT, KEY.DELETE]); break;
             case 'winkey': sendKeys([KEY.SUPER]); break;
             case 'hangul': sendKeys([KEY.ALT_R]); break;

@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: win-remote
+    runtime: docker
+    dockerfilePath: ./Dockerfile.allinone
+    plan: free
+    healthCheckPath: /api/config
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      # 배포 시 직접 입력 (이 서비스 접속용 비밀번호)
+      - key: ACCESS_PASSWORD
+        sync: false

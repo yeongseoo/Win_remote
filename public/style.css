@@ -128,3 +128,10 @@ dialog {
 }
 dialog form { display: flex; flex-direction: column; gap: 10px; }
 dialog::backdrop { background: rgba(0, 0, 0, .6); }
+
+/* 휴대폰: 툴바를 한 줄로 두고 가로 스크롤 */
+@media (max-width: 600px) {
+    .toolbar { flex-wrap: nowrap; overflow-x: auto; }
+    .toolbar button { flex: none; }
+    .status { display: none; }
+}

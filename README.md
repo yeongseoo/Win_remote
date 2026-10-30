@@ -26,6 +26,15 @@ SECRET_KEY="$(openssl rand -hex 32)" ACCESS_PASSWORD="원하는비밀번호" doc
 
 브라우저에서 `http://서버주소:8080` 접속.
 
+### Render 무료 호스팅에 배포 (PC 없이 휴대폰으로도 가능)
+
+1. https://render.com/deploy?repo=https://github.com/yeongseoo/win_remote 접속 (GitHub 계정으로 로그인)
+2. `ACCESS_PASSWORD` 에 이 서비스 접속용 비밀번호 입력 → **Apply**
+3. 몇 분 후 `https://win-remote-xxxx.onrender.com` 주소가 생성되면 접속
+
+`render.yaml` + `Dockerfile.allinone` (guacd 와 웹 서버를 컨테이너 하나로 묶은 이미지)을 사용합니다.
+무료 플랜은 15분간 사용이 없으면 잠들고, 다시 열 때 1분 정도 걸립니다.
+
 ### 직접 실행 (개발용)
 
 ```bash

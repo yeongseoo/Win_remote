@@ -1,0 +1,16 @@
+# guacd + 웹 서버를 컨테이너 하나로 묶은 이미지 (Render 등 단일 컨테이너 호스팅용)
+FROM guacamole/guacd:1.5.5
+USER root
+RUN apk add --no-cache nodejs npm
+WORKDIR /app
+ENV NODE_ENV=production GUACD_HOST=127.0.0.1 GUACD_PORT=4822
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev && npm cache clean --force
+COPY server.js ./
+COPY public ./public
+COPY start.sh ./
+RUN chmod +x start.sh
+USER guacd
+EXPOSE 8080
+ENTRYPOINT []
+CMD ["/app/start.sh"]
